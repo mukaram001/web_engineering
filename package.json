@@ -8,7 +8,7 @@
     "dev": "cross-env NODE_OPTIONS=--openssl-legacy-provider webpack-dev-server --config webpack/webpack.dev.js"
   },
   "engines": {
-    "node": "18.12.0"
+    "node": "18.x"
   },
   "dependencies": {
     "@fontsource/poppins": "^4.5.9",
