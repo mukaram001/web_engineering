@@ -1,6 +1,6 @@
 # react-multi-carousel 👋
 
-[![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
+[![Financial Contributors on Open Collective](https://opencollective.com/react-multi-carousel/all/badge.svg?label=financial+contributors)](https://opencollective.com/react-multi-carousel) [![All Contributors](https://img.shields.io/badge/all_contributors-8-orange.svg?style=flat-square)](#contributors)
 
 Production-ready, lightweight fully customizable React carousel component that rocks supports multiple items and SSR(Server-side rendering).
 
@@ -10,7 +10,7 @@ Production-ready, lightweight fully customizable React carousel component that r
 <img alt="download per month" src="https://img.shields.io/npm/dm/react-multi-carousel" target="_blank" />
 </a>
 [![Build Status](https://api.travis-ci.org/YIZHUANG/react-multi-carousel.svg?branch=master)](https://travis-ci.org/YIZHUANG/react-multi-carousel)
-<a href="https://w3js.com/react-multi-carousel">
+<a href="https://react-multi-carousel.surge.sh">
 <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" target="_blank" />
 </a>
 <a href="https://github.com/YIZHUANG/react-multi-carousel/graphs/commit-activity">
@@ -58,6 +58,7 @@ If you are using this component seriously, please donate or talk to your manager
 - Accessibility support
 - Center mode.
 - Show next/previous set of items partially
+- RTL support
 
 ### Shoutouts 🙏
 
@@ -65,7 +66,7 @@ If you are using this component seriously, please donate or talk to your manager
 
 Big thanks to [BrowserStack](https://www.browserstack.com) for letting the maintainers use their service to debug browser issues.
 
-## [Documentation](https://w3js.com/react-multi-carousel)
+## [Documentation](https://react-multi-carousel.surge.sh)
 
 ## Other important links.
 
@@ -83,7 +84,7 @@ Big thanks to [BrowserStack](https://www.browserstack.com) for letting the maint
 
 ## Demo.
 
-Documentation is [here](https://w3js.com/react-multi-carousel).
+Documentation is [here](https://react-multi-carousel.surge.sh).
 
 Demo for the SSR <https://react-multi-carousel.now.sh/>
 
@@ -197,7 +198,7 @@ const responsive = {
 
 You can pass your own custom arrows to make it the way you want, the same for the position. For example, add media query for the arrows to go under when on smaller screens.
 
-You custom arrows will receive a list of props/state that's passed back by the carousel such as the currentSide, is dragging or swiping in progress.
+Your custom arrows will receive a list of props/state that's passed back by the carousel such as the currentSide, is dragging or swiping in progress.
 
 [Code](https://github.com/YIZHUANG/react-multi-carousel/blob/master/stories/CustomArrows.js)
 
@@ -220,11 +221,11 @@ This is very useful if you don't want the dots, or arrows and you want to fully 
 [Code](https://github.com/YIZHUANG/react-multi-carousel/blob/master/stories/CustomArrows.js)
 
 ```js
-const ButtonGroup = ({ next, previous, goToSlide ...rest }) => {
+const ButtonGroup = ({ next, previous, goToSlide, ...rest }) => {
   const { carouselState: { currentSlide } } = rest;
   return (
     <div className="carousel-button-group"> // remember to give it position:absolute
-      <ButtonOne className={currentSlide === 0 : 'disable' : ''} onClick={() => previous()} />
+      <ButtonOne className={currentSlide === 0 ? 'disable' : ''} onClick={() => previous()} />
       <ButtonTwo onClick={() => next()} />
       <ButtonThree onClick={() => goToSlide(currentSlide + 1)}> Go to any slide </ButtonThree>
     </div>
@@ -436,7 +437,7 @@ Go to slide on click and make the slide a current slide.
 
 ## additionalTransfrom Props.
 
-This is very useful when you are fully customizing the control functionality by yourself like this [one](https://w3js.com/react-multi-carousel/?selectedKind=Carousel&selectedStory=With%20custom%20control%20functionality&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
+This is very useful when you are fully customizing the control functionality by yourself like this [one](https://react-multi-carousel.surge.sh/?selectedKind=Carousel&selectedStory=With%20custom%20control%20functionality&full=0&addons=1&stories=1&panelRight=0&addonPanel=storybook%2Factions%2Factions-panel)
 
 [Code](https://github.com/YIZHUANG/react-multi-carousel/blob/master/stories/WithScrollbar.js)
 
@@ -457,12 +458,13 @@ For example if you give to your carousel item padding left and padding right 20p
 | draggable               |                                                                     `boolean`                                                                      |              `true`               | Optionally disable/enable dragging on desktop                                                                                                                         |
 | swipeable               |                                                                     `boolean`                                                                      |              `true`               | Optionally disable/enable swiping on mobile                                                                                                                           |
 | arrows                  |                                                                     `boolean`                                                                      |              `true`               | Hide/Show the default arrows                                                                                                                                          |
+| renderArrowsWhenDisabled                  |                                                                     `boolean`                                                                      |              `false`               | Allow for the arrows to have a disabled attribute instead of not showing them                                                                                                                                          |
 | removeArrowOnDeviceType |                                                                 `string or array`                                                                  |               `''`                | Hide the default arrows at different break point, should be used with `responsive` props. Value could be `mobile` or `['mobile', 'tablet'], can be a string or array` |
 | customLeftArrow         |                                                                       `jsx`                                                                        |              `null`               | Replace the default arrow with your own                                                                                                                               |
 | customRightArrow        |                                                                       `jsx`                                                                        |              `null`               | Replace the default arrow with your own                                                                                                                               |
 | customDot               |                                                                       `jsx`                                                                        |               null                | Replace the default dots with your own                                                                                                                                |
 | customButtonGroup       |                                                                       `jsx`                                                                        |               null                | Fully customize your own control functionality if you don't want arrows or dots                                                                                       |
-| infinite                |                                                                     `boolean`                                                                      |               false               | Infinite loop                                                                                                                                                         |
+| infinite                |                                                                     `boolean`                                                                      |               false               | Enables infinite scrolling in both directions. Carousel items are cloned in the DOM to achieve this.                                                                                                                                                        |
 | minimumTouchDrag        |                                                                      `number`                                                                      |               `50`                | The amount of distance to drag / swipe in order to move to the next slide.                                                                                            |
 | afterChange             |                                                                     `function`                                                                     |              `null`               | A callback after sliding everytime.                                                                                                                                   |
 | beforeChange            |                                                                     `function`                                                                     |              `null`               | A callback before sliding everytime.                                                                                                                                  |
@@ -475,12 +477,16 @@ For example if you give to your carousel item padding left and padding right 20p
 | autoPlaySpeed           |                                                                      `number`                                                                      |               3000                | The unit is ms                                                                                                                                                        |
 | showDots                |                                                                     `boolean`                                                                      |              `false`              | Hide the default dot list                                                                                                                                             |
 | renderDotsOutside       |                                                                     `boolean`                                                                      |              `false`              | Show dots outside of the container                                                                                                                                    |
-| partialVisible          |                                                                 `boolean | string`                                                                 |              `false`              | Show partial next slides. This is use with the `responsive` prop, see example for details                                                                             |
+| partialVisible          |                                                                 `boolean` | `string`                                                                 |              `false`              | Show partial next slides. This is use with the `responsive` prop, see example for details                                                                             |
 | customTransition        |                                                                      `string`                                                                      |   `transform 300ms ease-in-out`   | Configure your own anaimation when sliding                                                                                                                            |
 | transitionDuration      | `number |`300` | The unit is ms, if you are using customTransition, make sure to put the duration here as this is needed for the resizing to work. |
-| focusOnSelect           |                                    `boolean |`false` | Go to slide on click and make the slide a current slide.                                    |
-| centerMode              |                                       `boolean |`false` | Shows the next items and previous items partially.                                       |
-| additionalTransfrom     |                                              `number |`0` | additional transfrom to the current one.                                               |
+| focusOnSelect           |                                    `boolean` |`false` | Go to slide on click and make the slide a current slide.                                    |
+| centerMode              |                                       `boolean` |`false` | Shows the next items and previous items partially.                                       |
+| additionalTransfrom     |                                              `number` |`0` | additional transfrom to the current one.                                               |
+| shouldResetAutoplay     |                                              `boolean` |`true` | resets autoplay when clicking next, previous button and the dots                                              |
+| rewind     |                                              `boolean` |`false` | if infinite is not enabled and autoPlay explicitly is, this option rewinds the carousel when the end is reached (Lightweight infinite mode alternative without cloning).
+| rewindWithAnimation     |                                              `boolean` |`false` | when rewinding the carousel back to the beginning, this decides if the rewind process should be instant or with transition.                                             |
+| rtl     |                                              `boolean` |`false` | Sets the carousel direction to be right to left                                              |
 
 ## Author
 
@@ -506,6 +512,36 @@ If this project help you reduce time to develop, you can give me a cup of coffee
 
 [![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=GJSPRG9RKSJLQ&source=url)
 
+## Contributors
+
+### Code Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/YIZHUANG/react-multi-carousel/graphs/contributors"><img src="https://opencollective.com/react-multi-carousel/contributors.svg?width=890&button=false" /></a>
+
+### Financial Contributors
+
+Become a financial contributor and help us sustain our community. [[Contribute](https://opencollective.com/react-multi-carousel/contribute)]
+
+#### Individuals
+
+<a href="https://opencollective.com/react-multi-carousel"><img src="https://opencollective.com/react-multi-carousel/individuals.svg?width=890"></a>
+
+#### Organizations
+
+Support this project with your organization. Your logo will show up here with a link to your website. [[Contribute](https://opencollective.com/react-multi-carousel/contribute)]
+
+<a href="https://opencollective.com/react-multi-carousel/organization/0/website"><img src="https://opencollective.com/react-multi-carousel/organization/0/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/1/website"><img src="https://opencollective.com/react-multi-carousel/organization/1/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/2/website"><img src="https://opencollective.com/react-multi-carousel/organization/2/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/3/website"><img src="https://opencollective.com/react-multi-carousel/organization/3/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/4/website"><img src="https://opencollective.com/react-multi-carousel/organization/4/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/5/website"><img src="https://opencollective.com/react-multi-carousel/organization/5/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/6/website"><img src="https://opencollective.com/react-multi-carousel/organization/6/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/7/website"><img src="https://opencollective.com/react-multi-carousel/organization/7/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/8/website"><img src="https://opencollective.com/react-multi-carousel/organization/8/avatar.svg"></a>
+<a href="https://opencollective.com/react-multi-carousel/organization/9/website"><img src="https://opencollective.com/react-multi-carousel/organization/9/avatar.svg"></a>
+
 ## License
 
 [![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2FYIZHUANG%2Freact-multi-carousel.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2FYIZHUANG%2Freact-multi-carousel?ref=badge_large)
@@ -519,22 +555,33 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/revskill10"><img src="https://avatars3.githubusercontent.com/u/1390196?v=4" width="100px;" alt=""/><br /><sub><b>Truong Hoang Dung</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=revskill10" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/tpinne"><img src="https://avatars1.githubusercontent.com/u/1384345?v=4" width="100px;" alt=""/><br /><sub><b>Tobias Pinnekamp</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=tpinne" title="Code">💻</a></td>
-    <td align="center"><a href="https://raajnadar.in"><img src="https://avatars1.githubusercontent.com/u/17236768?v=4" width="100px;" alt=""/><br /><sub><b>Rajendran Nadar</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=raajnadar" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/abhinavdalal-iconnect"><img src="https://avatars0.githubusercontent.com/u/35057308?v=4" width="100px;" alt=""/><br /><sub><b>Abhinav Dalal</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=abhinavdalal-iconnect" title="Code">💻</a></td>
-    <td align="center"><a href="https://oscarbarrett.github.io/"><img src="https://avatars0.githubusercontent.com/u/3511332?v=4" width="100px;" alt=""/><br /><sub><b>Oscar Barrett</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=OscarBarrett" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/neamatmim"><img src="https://avatars2.githubusercontent.com/u/37859935?v=4" width="100px;" alt=""/><br /><sub><b>Neamat Mim</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=neamatmim" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Martinretrou"><img src="https://avatars3.githubusercontent.com/u/17448102?v=4" width="100px;" alt=""/><br /><sub><b>Martin Retrou</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=Martinretrou" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/revskill10"><img src="https://avatars3.githubusercontent.com/u/1390196?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Truong Hoang Dung</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=revskill10" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/tpinne"><img src="https://avatars1.githubusercontent.com/u/1384345?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Tobias Pinnekamp</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=tpinne" title="Code">💻</a></td>
+    <td align="center"><a href="https://raajnadar.in"><img src="https://avatars1.githubusercontent.com/u/17236768?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rajendran Nadar</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=raajnadar" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/abhinavdalal-iconnect"><img src="https://avatars0.githubusercontent.com/u/35057308?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Abhinav Dalal</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=abhinavdalal-iconnect" title="Code">💻</a></td>
+    <td align="center"><a href="https://oscarbarrett.github.io/"><img src="https://avatars0.githubusercontent.com/u/3511332?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Oscar Barrett</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=OscarBarrett" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/neamatmim"><img src="https://avatars2.githubusercontent.com/u/37859935?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Neamat Mim</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=neamatmim" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Martinretrou"><img src="https://avatars3.githubusercontent.com/u/17448102?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Martin Retrou</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=Martinretrou" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="http://benhodgson.net"><img src="https://avatars0.githubusercontent.com/u/189707?v=4" width="100px;" alt=""/><br /><sub><b>Ben Hodgson</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=benhodgson87" title="Code">💻</a></td>
-    <td align="center"><a href="http://www.fiverr.com/mfaizan1"><img src="https://avatars3.githubusercontent.com/u/17065546?v=4" width="100px;" alt=""/><br /><sub><b>Faizan ul haq</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=mfaizan1" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/Adrian3PG"><img src="https://avatars0.githubusercontent.com/u/54852308?v=4" width="100px;" alt=""/><br /><sub><b>Adrian3PG</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=Adrian3PG" title="Code">💻</a></td>
+    <td align="center"><a href="http://benhodgson.net"><img src="https://avatars0.githubusercontent.com/u/189707?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Ben Hodgson</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=benhodgson87" title="Code">💻</a></td>
+    <td align="center"><a href="http://www.fiverr.com/mfaizan1"><img src="https://avatars3.githubusercontent.com/u/17065546?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Faizan ul haq</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=mfaizan1" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/Adrian3PG"><img src="https://avatars0.githubusercontent.com/u/54852308?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Adrian3PG</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=Adrian3PG" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/kuznetsovgm"><img src="https://avatars1.githubusercontent.com/u/46741704?v=4?s=100" width="100px;" alt=""/><br /><sub><b>kuznetsovgm</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=kuznetsovgm" title="Code">💻</a></td>
+    <td align="center"><a href="http://t.me/s/filimonovvadim"><img src="https://avatars1.githubusercontent.com/u/11225648?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Vadim Filimonov</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=VadimFilimonov" title="Documentation">📖</a></td>
+    <td align="center"><a href="https://github.com/groomain"><img src="https://avatars3.githubusercontent.com/u/3601848?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Romain</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=groomain" title="Code">💻</a></td>
+    <td align="center"><a href="http://rileylundquist.com"><img src="https://avatars.githubusercontent.com/u/5504497?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Riley Lundquist</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=rlundquist3" title="Code">💻</a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/ak-pdeshaies"><img src="https://avatars.githubusercontent.com/u/78373209?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Paul Deshaies Jr</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=ak-pdeshaies" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/donotcodeit"><img src="https://avatars.githubusercontent.com/u/30778436?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Pavel Mikheev</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=donotcodeit" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/nev1d"><img src="https://avatars.githubusercontent.com/u/69861627?v=4?s=100" width="100px;" alt=""/><br /><sub><b>nev1d</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=nev1d" title="Code">💻</a></td>
+    <td align="center"><a href="https://brandinavian.com"><img src="https://avatars.githubusercontent.com/u/62725224?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Mads Vammen</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=MaSchVam" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/jir-f"><img src="https://avatars.githubusercontent.com/u/13970855?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jiro Farah</b></sub></a><br /><a href="https://github.com/YIZHUANG/react-multi-carousel/commits?author=jir-f" title="Code">💻</a></td>
   </tr>
 </table>
 
-<!-- markdownlint-enable -->
+<!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->

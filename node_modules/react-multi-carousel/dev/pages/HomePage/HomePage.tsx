@@ -131,8 +131,27 @@ class Index extends React.Component {
           containerClass="container-with-dots"
           itemClass="image-item"
           deviceType={this.props.deviceType}
+          rewind={true}
         >
-          {fakerData.slice(0,5).map(card => {
+          {fakerData.slice(0, 5).map(card => {
+            return <Image url={card.image} alt={card.headline} />;
+          })}
+        </Carousel>
+
+        <Carousel
+          responsive={responsive}
+          ssr
+          showDots
+          minimumTouchDrag={80}
+          slidesToSlide={1}
+          partialVisible={true}
+          containerClass="container-with-dots"
+          itemClass="image-item"
+          deviceType={this.props.deviceType}
+          rewind={true}
+          rtl={true}
+        >
+          {fakerData.slice(0, 5).map(card => {
             return <Image url={card.image} alt={card.headline} />;
           })}
         </Carousel>
